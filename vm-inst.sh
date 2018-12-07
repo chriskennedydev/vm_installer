@@ -4,8 +4,7 @@ echo "_______________"
 echo "VM Installation"
 echo "_______________"
 
-echo "Enter the name of the VM:"
-read vm
+echo "Enter the name of the VM:" read vm
 
 echo "Enter the amount of RAM in MB:"
 read ram
@@ -29,6 +28,6 @@ sudo virt-install --name $vm \
 		  --os-type linux --os-variant generic \
 		  --network bridge=br0 \
 		  --graphics none --console pty,target_type=serial \
-		  --location '/home/chris/CentOS-7-x86_64-Minimal-1810.iso' \
-		  --extra-args 'console=ttyS0,115200n8 serial' -x ks=ftp://10.0.0.100/pub/ks.cfg
+#		  --location '/home/chris/CentOS-7-x86_64-Minimal-1810.iso' \
+#		  --extra-args 'console=ttyS0,115200n8 serial' -x ks=ftp://10.0.0.100/pub/ks.cfg
 
