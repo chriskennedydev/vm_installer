@@ -22,6 +22,11 @@ while getopts ":n:r:c:d:g:" arg; do
 done
 shift $((OPTIND -1))
 
+if [ -z "$vm" ]; then
+    info
+    exit
+fi
+
 echo "Building VM"
 
 sudo virt-install --name $vm \
