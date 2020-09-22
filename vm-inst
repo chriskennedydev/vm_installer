@@ -2,19 +2,18 @@
 
 info()
 {
-    echo "usage: vm-inst.sh [-n VM name] [-r RAM] [-c vcpus] [-d hard drive name] [-g hard drive size in GB]"
+    echo "usage: vm-inst [-n VM name] | <optional> [-r RAM] [-c vcpus] [-g hard drive size in GB]"
 }
 
 ram=2048
 num_cpu=2
 hd_size=60
 
-while getopts ":n:r:c:d:g:" arg; do
+while getopts ":n:r:c:g:" arg; do
     case ${arg} in
         n)      vm=$OPTARG      ;;
         r)      ram=$OPTARG     ;;
         c)      num_cpu=$OPTARG ;;
-        d)      hd=$OPTARG      ;;
         g)      hd_size=$OPTARG ;;
         ?)      info
                 exit            ;;
@@ -31,10 +30,11 @@ echo "Building VM"
 
 sudo virt-install --name $vm \
                   --ram $ram \
-                  --disk path=./$hd,size=$hd_size \
+                  --disk path=./$vm,size=$hd_size \
                   --vcpus $num_cpu \
                   --os-type linux --os-variant generic \
                   --network bridge=br0 \
                   --graphics none --console pty,target_type=serial \
-                  --location '/home/chris/isos/CentOS-7-x86_64-Minimal-1810.iso' \
-                  --extra-args 'console=ttyS0,115200n8 serial' -x ks=ftp://172.16.0.100/pub/ks.cfg
+                  --location '/home/chris/Lab/isos/CentOS-8.2.2004-x86_64-dvd1.iso' \
+                  --initrd-inject /root/ks.cfg \
+                  --extra-args "ks=file:/ks.cfg console=ttyS0,115200n8 serial"
