@@ -36,5 +36,4 @@ sudo virt-install --name $vm \
                   --network bridge=br0 \
                   --graphics none --console pty,target_type=serial \
                   --location '/home/chris/Lab/isos/CentOS-8.2.2004-x86_64-dvd1.iso' \
-                  --initrd-inject /root/ks.cfg \
-                  --extra-args "ks=file:/ks.cfg console=ttyS0,115200n8 serial"
+                  --extra-args "ks=http://172.16.0.103/ks.cfg console=ttyS0,115200n8 serial"
